@@ -14,7 +14,11 @@ public class DemoApplication {
 	public class HelloController {
 		@GetMapping("/")
 		public String hello() {
-			return "Hello from nho hahasss alo m 7!";
+			return "Hello from nho helo hi 7!";
+		}
+		@GetMapping("/login")
+		public String login() {
+			return "Login successful!";
 		}
 	}
 }
