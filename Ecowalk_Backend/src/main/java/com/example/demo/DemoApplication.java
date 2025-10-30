@@ -16,5 +16,9 @@ public class DemoApplication {
 		public String hello() {
 			return "Hello from nho helo hi 7!";
 		}
+		@GetMapping("/test")
+		public String test() {
+			return "Test!";
+		}
 	}
 }
