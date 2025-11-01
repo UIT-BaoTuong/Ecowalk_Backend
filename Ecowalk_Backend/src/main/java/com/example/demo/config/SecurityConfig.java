@@ -20,8 +20,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .anyRequest().permitAll()
             )
-            .csrf(csrf -> csrf.disable()); // ✅ cú pháp mới
+            .csrf(csrf -> csrf.disable());
         return http.build();
     }
-
 }
