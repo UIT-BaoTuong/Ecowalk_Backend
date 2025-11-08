@@ -53,3 +53,15 @@ POST localhost:8080/api/run_activity
     }
   ]
 }
+
+POST localhost:8080/api/run_activity/by_id
+->Request mẫu
+{
+    "id" : "1"
+}
+
+POST localhost:8080/api/run_activity/by_user_id
+->Request mẫu
+{
+    "userId" : "103"
+}
