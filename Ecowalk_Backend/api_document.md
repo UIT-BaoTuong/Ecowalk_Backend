@@ -3,30 +3,29 @@ Cách sử dụng API: API GET thì chỉ cần nhập url thì nó sẽ trả v
 
 API ở file UsersController
 GET localhost:8080/api/users
+
 POST localhost:8080/api/user/by_email
-->Request mẫu
 {
     "email":"tuong@gmail.com"
 }
+
 POST localhost:8080/api/user/by_phone_numbe
-->Request mẫu
 {
     "phoneNumber":"09670124289"
 }
+
 POST localhost:8080/api/exists_user/by_email
-->Request mẫu
 {
     "email":"tuong@gmail.com"
 }
+
 POST localhost:8080/api/exists_user/by_phone_number
-->Request mẫu
 {
     "phoneNumber":"09670124289"
 }
 
 API ở file AuthController
 POST localhost:8080/api/register
-->Request mẫu
 {
     "full_name":"Nguyen Duy Bao Tuong",
     "email":"tuongndb1@gmail.com",
@@ -34,9 +33,15 @@ POST localhost:8080/api/register
     "password": "12345678"
 }
 
+POST localhost:8080/api/login
+{
+    "email": "thao@gmailcom",
+    "password": "23521466"
+}
+
+
 API ở file RunsController
 POST localhost:8080/api/run_activity
-->Request mẫu
 {
     "userId": 103,
     "startTime": "2025-11-02T08:00:00",
@@ -55,13 +60,16 @@ POST localhost:8080/api/run_activity
 }
 
 POST localhost:8080/api/run_activity/by_id
-->Request mẫu
 {
     "id" : "1"
 }
 
 POST localhost:8080/api/run_activity/by_user_id
-->Request mẫu
 {
     "userId" : "103"
 }
+
+Kiểm tra đời sống của token
+App JSON Web Token (JWT) Debugger: https://www.jwt.io/
+Dùng postman để lấy refresh_token và access_token.
+Nhập 2 trường thông tin vừa lấy được vào ô JSON Web Token (JWT) bên tay trái, xem thông tin và của token bên tay phải.
