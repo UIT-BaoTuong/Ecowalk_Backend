@@ -35,3 +35,15 @@ out/
 
 ### VS Code ###
 .vscode/
+# Gradle rác
+.gradle/
+build/
+
+# Các file cài đặt AWS & Kubectl bạn đã tải về
+awscliv2.zip
+aws/
+kubectl
+
+# File thực thi của hệ thống
+*.jar
+*.bat
