@@ -14,7 +14,7 @@ public class DemoApplication {
 	public class HelloController {
 		@GetMapping("/")
 		public String hello() {
-			return "Hello from nho helo hi 7, Add git hub action!";
+			return "Hello from nho helo hi 7, Add git hub action test!";
 		}
 		@GetMapping("/test")
 		public String test() {
