@@ -4,6 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'checkstyle'
 	id 'com.diffplug.spotless' version '6.25.0'
+	id 'com.github.spotbugs' version '6.0.4'
 }
 checkstyle {
     toolVersion = '10.12.5' 
@@ -14,6 +15,11 @@ spotless {
     java {
         googleJavaFormat() 
     }
+}
+spotbugs {
+    toolVersion = '4.8.4' 
+    reportLevel = 'low' 
+	ignoreFailures = true
 }
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
