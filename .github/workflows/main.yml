@@ -22,7 +22,11 @@ jobs:
 
       - name: Cấp quyền thực thi cho Gradlew
         run: chmod +x gradlew
-
+        
+      # Chạy Spotless để tự động format code
+      - name: Run Spotless Apply
+        run: ./gradlew spotlessApply
+        
       # --- 1.1 Linter/Code Style (Checkstyle) ------------------
       - name: 🔍 Kiểm tra Code Style (Checkstyle)
         # Checkstyle là công cụ phổ biến để kiểm tra tuân thủ style cho Java
