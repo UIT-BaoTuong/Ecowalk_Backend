@@ -44,7 +44,7 @@ jobs:
       # --- 1.4 SCA (Software Composition Analysis - Dependency-Check) ---
       - name: 🔗 Quét Lỗ hổng Thư viện (OWASP Dependency-Check)
         # Quét các thư viện JAR để tìm lỗ hổng đã biết (CVEs)
-        uses: dependency-check/dependency-check-action@v3
+        uses: dependency-check/Dependency-Check_Action@main
         with:
           # Thư mục build/dependency của Gradle thường là nơi chứa các file JAR cần quét
           scanPath: build/libs
