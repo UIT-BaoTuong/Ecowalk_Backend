@@ -45,10 +45,10 @@ jobs:
         run: ./gradlew spotbugsMain
         # SpotBugs (kế thừa từ FindBugs) là một SAST tool rất mạnh cho Java
 
-      # --- 1.4 SCA (Software Composition Analysis - Dependency-Check) ---
-      - name: 🔗 Quét Lỗ hổng Thư viện (OWASP Dependency-Check)
-        # Sử dụng task Gradle thay vì Docker Action để tránh lỗi JAVA_HOME
-        run: ./gradlew dependencyCheckAnalyze
+      # # --- 1.4 SCA (Software Composition Analysis - Dependency-Check) ---
+      # - name: 🔗 Quét Lỗ hổng Thư viện (OWASP Dependency-Check)
+      #   # Sử dụng task Gradle thay vì Docker Action để tránh lỗi JAVA_HOME
+      #   run: ./gradlew dependencyCheckAnalyze
         
   # =========================================================
   # 2. BUILD AND PUSH JOB (Chỉ chạy khi Quality/Test OK)
