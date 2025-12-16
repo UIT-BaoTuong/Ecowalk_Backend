@@ -14,7 +14,7 @@ public class DemoApplication {
 	public class HelloController {
 		@GetMapping("/")
 		public String hello() {
-			return "Version v2";
+			return "Test CI is running!";
 		}
 		@GetMapping("/test")
 		public String test() {
