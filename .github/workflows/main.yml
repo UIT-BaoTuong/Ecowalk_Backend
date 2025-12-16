@@ -21,7 +21,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build file JAR với Gradle
-        run: ./gradlew build -x test
+        run: ./gradlew build 
 
       - name: Đăng nhập Docker Hub
         uses: docker/login-action@v3
@@ -34,18 +34,11 @@ jobs:
         with:
           context: .
           push: true
-          # Mình giữ tag v2 theo ý bạn và thêm tag commit SHA để Tekton dễ tracking
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/ecowalk-backend:v2
+            ${{ secrets.DOCKERHUB_USERNAME }}/ecowalk-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/ecowalk-backend:${{ github.sha }}
-
-      # Bước mới: Gửi HTTP Request đến Tekton EventListener
       - name: Trigger Tekton CD Pipeline
         run: |
           curl -X POST http://${{ secrets.TEKTON_EL_URL }} \
-            -H "Content-Type: application/json" \
-            -d '{
-              "repo_url": "${{ github.event.repository.clone_url }}",
-              "commit_sha": "${{ github.sha }}",
-              "image": "${{ secrets.DOCKERHUB_USERNAME }}/ecowalk-backend:v2"
-            }'
+            -H 'Content-Type: application/json' \
+            -d '{"ref":"main","repository":{"url":"Hello"}}'
