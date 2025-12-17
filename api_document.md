@@ -74,37 +74,36 @@ App JSON Web Token (JWT) Debugger: https://www.jwt.io/
 Dùng postman để lấy refresh_token và access_token.
 Nhập 2 trường thông tin vừa lấy được vào ô JSON Web Token (JWT) bên tay trái, xem thông tin và của token bên tay phải.
 
-### API ở file RewardController
-* **Lấy danh sách quà:**
-    `GET localhost:8081/api/rewards`
+API ở file RewardController
+Lấy danh sách quà: `GET localhost:8081/api/rewards`
 
-* **Tạo quà mới (Dùng Link ảnh):**
+
+Tạo quà mới (Dùng Link ảnh):
     `POST localhost:8081/api/rewards`
     ```json
     {
         "name": "Balo",
         "cost": 1000,
         "description": "Cho trẻ mẫu giáo",
-        "image_url": "[https://link-anh-cua-ban.com/hinh.jpg](https://link-anh-cua-ban.com/hinh.jpg)"
+        "image_url": "https://link-anh-cua-ban.com/hinh.jpg"
     }
     ```
 
-* **Đổi quà (Redeem):**
+
+Đổi quà (Redeem):
     `POST localhost:8081/api/rewards/redeem`
     ```json
     { "userId": 27, "rewardId": 1 }
     ```
 
----
-
-### API ở file UsersController (Mới thêm)
-* **Đổi tên hiển thị:**
+API ở file UsersController
+Đổi tên hiển thị:
     `POST localhost:8081/api/users/27/update_name`
     ```json
     { "fullName": "Tên Mới Của Tôi" }
     ```
 
-* **Upload Avatar (Cái này vẫn dùng form-data):**
+Upload Avatar:
     `POST localhost:8081/api/users/27/avatar`
     * *Lưu ý:* Chọn Body -> **form-data** (Vì upload từ điện thoại)
     * Key: `file` (Chọn file từ máy)
