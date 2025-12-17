@@ -73,3 +73,23 @@ Kiểm tra đời sống của token
 App JSON Web Token (JWT) Debugger: https://www.jwt.io/
 Dùng postman để lấy refresh_token và access_token.
 Nhập 2 trường thông tin vừa lấy được vào ô JSON Web Token (JWT) bên tay trái, xem thông tin và của token bên tay phải.
+
+#### API ở file RewardController
+* `GET localhost:8081/api/rewards` (Lấy danh sách quà)
+* `POST localhost:8081/api/rewards`
+    * **Lưu ý:** Chọn Body -> `form-data` (để up ảnh)
+    * `name`: "Bình nước", `cost`: 500, `description`: "Giữ nhiệt", `file`: (Chọn file ảnh)
+* `POST localhost:8081/api/rewards/redeem`
+    * Body: `{ "userId": 27, "rewardId": 1 }`
+
+#### API ở file UsersController (Mới thêm)
+* `POST localhost:8081/api/users/27/update_name`
+    * Body: `{ "fullName": "Tên Mới Của Tôi" }`
+* `POST localhost:8081/api/users/27/avatar`
+    * **Lưu ý:** Chọn Body -> `form-data`
+    * `file`: (Chọn file ảnh từ máy)
+    Kiểm tra ảnh đã được tải lên chưa ở Cloudinary (đăng nhập bằng mail của nhóm)
+
+#### API ở file RunActivityController
+* `POST localhost:8081/api/run_activity/by_user_id`
+    * Body: `{ "userId": 27 }`
