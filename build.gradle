@@ -2,8 +2,29 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.6'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'checkstyle'
+	id 'com.diffplug.spotless' version '6.25.0'
+	id 'com.github.spotbugs' version '6.0.4'
+	id "org.owasp.dependencycheck" version "9.0.9"
 }
-
+checkstyle {
+    toolVersion = '10.12.5' 
+	configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+	ignoreFailures = true  
+}
+spotless {
+    java {
+        googleJavaFormat() 
+    }
+}
+spotbugs {
+    toolVersion = '4.8.4' 
+    reportLevel = 'low' 
+	ignoreFailures = true
+}
+dependencyCheck {
+	failBuildOnCVSS = 10
+}
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 description = 'Demo project for Spring Boot'

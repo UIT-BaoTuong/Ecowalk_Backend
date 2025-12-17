@@ -1,9 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "run_points")
@@ -11,19 +11,19 @@ import java.time.LocalDateTime;
 @Setter
 public class RunPoints {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "run_id", nullable = false)
-    private Long runId;
+  @Column(name = "run_id", nullable = false)
+  private Long runId;
 
-    @Column(name = "latitude", nullable = false)
-    private Double latitude;
+  @Column(name = "latitude", nullable = false)
+  private Double latitude;
 
-    @Column(name = "longitude", nullable = false)
-    private Double longitude;
+  @Column(name = "longitude", nullable = false)
+  private Double longitude;
 
-    @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
+  @Column(name = "timestamp", nullable = false)
+  private LocalDateTime timestamp;
 }
