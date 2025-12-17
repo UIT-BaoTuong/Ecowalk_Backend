@@ -1,8 +1,11 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
+
 import lombok.*;
 
 @Getter
@@ -10,34 +13,32 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "users")
-public class Users {
+    //Create class "Users" mapping table "users" in database
+    @Entity
+    @Table(name = "users")
+    public class Users {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+        @Id
+        @Column(name="id")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    @Column(name="phone_number", unique = true, length = 15)
-    private String phoneNumber;
+        @Column(name="phone_number", unique = true, length = 15)
+        private String phoneNumber;
 
-    @Column(name="email", unique = true, nullable = false, length = 50)
-    private String email;
+        @Column(name="email", unique = true, nullable = false, length = 50)
+        private String email;
 
-    @Column(name="password_hash", nullable = false)
-    private String passwordHash;
+        @Column(name="password_hash", nullable = false)
+        private String passwordHash;
 
-    @Column(name="full_name", length = 100)
-    private String fullName;
+        @Column(name="full_name", length = 100)
+        private String fullName;
 
-    @CreationTimestamp
-    @Column(name="create_at", nullable = false, updatable = false)
-    private LocalDateTime createAt;
-
-    @Builder.Default 
-    @Column(name = "current_points", nullable = false, columnDefinition = "integer default 0")
-    private int currentPoints = 0; 
+        @CreationTimestamp
+        @Column(name="create_at",nullable = false, updatable = false)
+        private LocalDateTime createAt;
+    }
 
 
     @Column(name = "avatar_url") 
