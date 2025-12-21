@@ -75,6 +75,7 @@ Dùng postman để lấy refresh_token và access_token.
 Nhập 2 trường thông tin vừa lấy được vào ô JSON Web Token (JWT) bên tay trái, xem thông tin và của token bên tay phải.
 
 API ở file RewardController
+
 Lấy danh sách quà: `GET localhost:8081/api/rewards`
 
 
@@ -109,3 +110,28 @@ Upload Avatar:
     * Key: `file` (Chọn file từ máy)
     Kiểm tra ảnh được tải lên chưa ở console.cloudinary.com (dùng mail của nhóm)
 
+
+API ở file RankingController
+
+GET localhost:8081/api/ranking?type=month&currentUserId=27
+
+(Lưu ý: API này dùng phương thức GET, không cần Body JSON. Tham số type có thể là: month, year, all)
+
+Mẫu dữ liệu trả về (Response):
+{
+    "topList": [
+        {
+            "userId": 10,
+            "fullName": "Nguyen Van A",
+            "avatarUrl": "http://...",
+            "totalDistance": 150.5
+        },
+        {
+            "userId": 27,
+            "fullName": "Ban",
+            "avatarUrl": "http://...",
+            "totalDistance": 120.0
+        }
+    ],
+    "myRank": "2"
+}
