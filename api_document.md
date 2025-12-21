@@ -76,6 +76,7 @@ Nhập 2 trường thông tin vừa lấy được vào ô JSON Web Token (JWT) 
 
 API ở file RewardController
 
+
 Lấy danh sách quà: `GET localhost:8081/api/rewards`
 
 
