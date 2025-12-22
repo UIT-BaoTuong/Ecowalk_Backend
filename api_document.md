@@ -136,3 +136,17 @@ Mẫu dữ liệu trả về (Response):
     ],
     "myRank": "2"
 }
+
+Quên mật khẩu
+
+1. POST http://localhost:8081/api/auth/forgot-password
+   {
+   "email": "nhom7nt118@gmail.com"
+   }
+
+2. POST http://localhost:8081/api/auth/reset-password
+   {
+   "email": "nhom7nt118@gmail.com",
+   "otp": "<6 numbers>",
+   "newPassword": "MatKhauvi123"
+   }
