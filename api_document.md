@@ -136,3 +136,7 @@ Mẫu dữ liệu trả về (Response):
     ],
     "myRank": "2"
 }
+
+API ở file HomeController
+
+GET http://localhost:8081/api/home/dashboard?userId=27
