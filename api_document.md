@@ -1,72 +1,70 @@
 Cách sử dụng API: API GET thì chỉ cần nhập url thì nó sẽ trả về dữ liệu, API POST thì phải thêm Request
 
-
 API ở file UsersController
-GET localhost:8080/api/users
+GET localhost:8081/api/users
 
-POST localhost:8080/api/user/by_email
+POST localhost:8081/api/user/by_email
 {
-    "email":"tuong@gmail.com"
+"email":"tuong@gmail.com"
 }
 
-POST localhost:8080/api/user/by_phone_numbe
+POST localhost:8081/api/user/by_phone_numbe
 {
-    "phoneNumber":"09670124289"
+"phoneNumber":"09670124289"
 }
 
-POST localhost:8080/api/exists_user/by_email
+POST localhost:8081/api/exists_user/by_email
 {
-    "email":"tuong@gmail.com"
+"email":"tuong@gmail.com"
 }
 
-POST localhost:8080/api/exists_user/by_phone_number
+POST localhost:8081/api/exists_user/by_phone_number
 {
-    "phoneNumber":"09670124289"
+"phoneNumber":"09670124289"
 }
 
 API ở file AuthController
-POST localhost:8080/api/register
+POST localhost:8081/api/register
 {
-    "full_name":"Nguyen Duy Bao Tuong",
-    "email":"tuongndb1@gmail.com",
-    "phone_number": "09331446771",
-    "password": "12345678"
+"full_name":"Nguyen Duy Bao Tuong",
+"email":"tuongndb1@gmail.com",
+"phone_number": "09331446771",
+"password": "12345678"
 }
 
-POST localhost:8080/api/login
+POST localhost:8081/api/login
 {
-    "email": "thao@gmailcom",
-    "password": "23521466"
+"email": "thao@gmailcom",
+"password": "23521466"
 }
-
 
 API ở file RunsController
-POST localhost:8080/api/run_activity
+POST localhost:8081/api/run_activity
 {
-    "userId": 103,
-    "startTime": "2025-11-02T08:00:00",
-    "endTime": "2025-11-02T08:45:30",
-    "distanceKm": 51.25,
-    "coordinatesJson": [
-    {
-      "lat": 10.7769,
-      "lng": 16.7009
-    },
-    {
-      "lat": 10.7780,
-      "lng": 106.7020
-    }
-  ]
+"userId": 103,
+"startTime": "2025-11-02T08:00:00",
+"endTime": "2025-11-02T08:45:30",
+"distanceKm": 51.25,
+"coordinatesJson": [
+{
+"lat": 10.7769,
+"lng": 16.7009
+},
+{
+"lat": 10.7780,
+"lng": 106.7020
+}
+]
 }
 
-POST localhost:8080/api/run_activity/by_id
+POST localhost:8081/api/run_activity/by_id
 {
-    "id" : "1"
+"id" : "1"
 }
 
-POST localhost:8080/api/run_activity/by_user_id
+POST localhost:8081/api/run_activity/by_user_id
 {
-    "userId" : "103"
+"userId" : "103"
 }
 
 Kiểm tra đời sống của token
@@ -79,38 +77,35 @@ API ở file RewardController
 
 Lấy danh sách quà: `GET localhost:8081/api/rewards`
 
-
 Tạo quà mới (Dùng Link ảnh):
-    `POST localhost:8081/api/rewards`
-    ```json
+`POST localhost:8081/api/rewards`
+`json
     {
         "name": "Balo",
         "cost": 1000,
         "description": "Cho trẻ mẫu giáo",
         "image_url": "https://link-anh-cua-ban.com/hinh.jpg"
     }
-    ```
-
+    `
 
 Đổi quà (Redeem):
-    `POST localhost:8081/api/rewards/redeem`
-    ```json
+`POST localhost:8081/api/rewards/redeem`
+`json
     { "userId": 27, "rewardId": 1 }
-    ```
+    `
 
 API ở file UsersController
 Đổi tên hiển thị:
-    `POST localhost:8081/api/users/27/update_name`
-    ```json
+`POST localhost:8081/api/users/27/update_name`
+`json
     { "fullName": "Tên Mới Của Tôi" }
-    ```
+    `
 
 Upload Avatar:
-    `POST localhost:8081/api/users/27/avatar`
-    * *Lưu ý:* Chọn Body -> **form-data** (Vì upload từ điện thoại)
-    * Key: `file` (Chọn file từ máy)
-    Kiểm tra ảnh được tải lên chưa ở console.cloudinary.com (dùng mail của nhóm)
+`POST localhost:8081/api/users/27/avatar` \* _Lưu ý:_ Chọn Body -> **form-data** (Vì upload từ điện thoại) \* Key: `file` (Chọn file từ máy)
+Kiểm tra ảnh được tải lên chưa ở console.cloudinary.com (dùng mail của nhóm)
 
+<<<<<<< Updated upstream
 
 API ở file RankingController
 
@@ -135,4 +130,19 @@ Mẫu dữ liệu trả về (Response):
         }
     ],
     "myRank": "2"
+=======
+Quên mật khẩu
+
+1. POST http://localhost:8081/api/auth/forgot-password
+   {
+   "email": "nhom7nt118@gmail.com"
+   }
+
+2. POST http://localhost:8081/api/auth/reset-password
+
+{
+"email": "nhom7nt118@gmail.com",
+"otp": "<6 numbers>",
+"newPassword": "MatKhauvi123"
+>>>>>>> Stashed changes
 }
