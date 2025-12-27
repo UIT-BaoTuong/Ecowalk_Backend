@@ -150,3 +150,7 @@ Quên mật khẩu
    "otp": "<6 numbers>",
    "newPassword": "MatKhauvi123"
    }
+
+API ở file HomeController
+
+GET http://localhost:8081/api/home/dashboard?userId=27
