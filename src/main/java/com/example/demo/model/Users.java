@@ -43,8 +43,8 @@ public class Users {
   private String avatarUrl;
 
   @Column(name = "reset_token", length = 6)
-    private String resetToken;  // save OTP token here
+    private String resetToken;  
 
   @Column(name = "reset_token_expire")
-  private LocalDateTime resetTokenExpire;  // OTP expiration time
+  private LocalDateTime resetTokenExpire;  
 }
