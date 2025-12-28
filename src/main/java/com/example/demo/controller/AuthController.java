@@ -41,6 +41,7 @@ public class AuthController {
     response.put("message", "Đăng nhập thành công");
     response.put("access_token", accessToken);
     response.put("refresh_token", refreshToken);
+    response.put("user_id", user.getId()); // Thêm user_id vào response
 
     return ResponseEntity.ok(response);
   }
