@@ -10,10 +10,8 @@ public class HomeResponse {
     
     private List<CalendarStat> calendarHistory; 
 
-    // Constructor
     public HomeResponse() {}
 
-    // --- Getters & Setters ---
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
 

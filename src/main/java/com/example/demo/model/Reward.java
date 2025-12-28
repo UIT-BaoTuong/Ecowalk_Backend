@@ -16,12 +16,12 @@ public class Reward {
     private Long id;
 
     @Column(nullable = false)
-    private String name;        // Tên quà (VD: Voucher 50k)
+    private String name;        
 
-    private String description; // Mô tả
+    private String description; 
 
     @Column(nullable = false)
-    private int cost;           // Số điểm cần để đổi
+    private int cost;          
 
     @Column(columnDefinition = "TEXT")
     private String image_url;    

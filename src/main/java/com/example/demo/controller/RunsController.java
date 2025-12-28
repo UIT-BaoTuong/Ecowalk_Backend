@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Runs;
+import com.example.demo.model.RunPoints;
 import com.example.demo.model.Users;
 import com.example.demo.repository.RunsRepository;
+import com.example.demo.repository.RunPointsRepository;
 import com.example.demo.repository.UsersRepository;
 
 @RestController
@@ -24,6 +26,9 @@ public class RunsController {
     
     @Autowired
     private RunsRepository runsRepository;
+
+    @Autowired
+    private RunPointsRepository runPointsRepository;
 
     @Autowired
     private UsersRepository usersRepository;
@@ -101,4 +106,15 @@ public class RunsController {
         return ResponseEntity.badRequest().body("Lỗi Server: " + e.getMessage());
     }
   }
+
+    @PostMapping("/api/run_points")
+    private ResponseEntity<?> saveRunPoints(@RequestBody List<RunPoints> runPoints) {
+        try {
+            List<RunPoints> saved = runPointsRepository.saveAll(runPoints);
+            return new ResponseEntity<>(saved, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Error saving run points: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
