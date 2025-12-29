@@ -66,4 +66,14 @@ public class ClubController {
                 clubQueryService.getSuggestedClubs(userId)
         );
     }
+
+    @PostMapping("/{clubId}/join")
+    public ResponseEntity<?> joinClub(
+            @PathVariable Long clubId,
+            @RequestParam Long userId
+    ) {
+        clubQueryService.joinClub(clubId, userId);
+        return ResponseEntity.ok().build();
+    }
+
 }
