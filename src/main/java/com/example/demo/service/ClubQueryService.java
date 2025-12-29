@@ -78,4 +78,25 @@ public class ClubQueryService {
         );
     }
 
+    /* ================= SEARCH ================= */
+    public List<ClubResponse> searchClubs(
+            Long userId,
+            String keyword,
+            String type
+    ) {
+        if (keyword == null) keyword = "";
+
+        List<Club> clubs;
+
+        switch (type) {
+            case "my" -> clubs = clubRepository.searchMyClubs(userId, keyword);
+            case "suggested" -> clubs = clubRepository.searchSuggestedClubs(userId, keyword);
+            default -> clubs = clubRepository.searchAll(keyword);
+        }
+
+        return clubs.stream()
+                .map(club -> toResponse(club, userId))
+                .toList();
+    }
+
 }
