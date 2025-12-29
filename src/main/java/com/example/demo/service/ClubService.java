@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.Club;
 import com.example.demo.model.Users;
-import com.example.demo.repository.ClubRespository;
+import com.example.demo.repository.ClubRepository;
 import com.example.demo.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,16 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ClubService {
 
-    private final ClubRespository clubRespository;
+    private final ClubRepository clubRepository;
     private final UsersRepository usersRepository;
     private final CloudinaryService cloudinaryService;
 
     public ClubService(
-            ClubRespository clubRespository,
+            ClubRepository clubRepository,
             UsersRepository usersRepository,
             CloudinaryService cloudinaryService
     ) {
-        this.clubRespository = clubRespository;
+        this.clubRepository = clubRepository;
         this.usersRepository = usersRepository;
         this.cloudinaryService = cloudinaryService;
     }
@@ -49,6 +49,6 @@ public class ClubService {
             club.setAvatarUrl(imageUrl);
         }
 
-        return clubRespository.save(club);
+        return clubRepository.save(club);
     }
 }
