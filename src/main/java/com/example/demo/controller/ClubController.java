@@ -75,5 +75,18 @@ public class ClubController {
         clubQueryService.joinClub(clubId, userId);
         return ResponseEntity.ok().build();
     }
+    
+    // 🔽 [THÊM] – SEARCH CLUB
+    @GetMapping("/search")
+    public ResponseEntity<List<ClubResponse>> searchClubs(
+            @RequestParam Long userId,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "all") String type
+    ) {
+        return ResponseEntity.ok(
+                clubQueryService.searchClubs(userId, keyword, type)
+        );
+    }
+
 
 }
