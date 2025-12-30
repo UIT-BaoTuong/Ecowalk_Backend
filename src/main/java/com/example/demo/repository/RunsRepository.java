@@ -41,6 +41,10 @@ public interface RunsRepository extends JpaRepository<Runs, Long> {
     @Query(value = "SELECT DISTINCT TO_CHAR(start_time, 'YYYY-MM-DD') FROM runs WHERE user_id = :userId", nativeQuery = true)
     List<String> getAllActiveDates(@Param("userId") Long userId);
 
+    @Query(value = "SELECT COALESCE(SUM(distance_km), 0) FROM runs WHERE user_id = :userId AND start_time >= :startDate", nativeQuery = true)
+    Double getTotalDistanceFrom(@Param("userId") Long userId, @Param("startDate") LocalDateTime startDate);
+
     @Query(value = "SELECT TO_CHAR(start_time, 'YYYY-MM-DD'), COALESCE(SUM(distance_km), 0) FROM runs WHERE user_id = :userId GROUP BY TO_CHAR(start_time, 'YYYY-MM-DD')", nativeQuery = true)
        List<Object[]> getCalendarStats(@Param("userId") Long userId);
+
 }

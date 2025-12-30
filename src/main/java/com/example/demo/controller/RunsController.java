@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Runs;
+import com.example.demo.model.Users;
 import com.example.demo.repository.RunsRepository;
+import com.example.demo.repository.UsersRepository;
+import com.example.demo.service.UsersService; // 👇 Nhớ Import cái này
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Runs;
-import com.example.demo.model.Users;
-import com.example.demo.repository.RunsRepository;
-import com.example.demo.repository.UsersRepository;
-
 @RestController
 public class RunsController {
     
@@ -28,12 +26,18 @@ public class RunsController {
     @Autowired
     private UsersRepository usersRepository;
 
+    // 👇 1. THÊM SERVICE VÀO ĐÂY
+    @Autowired
+    private UsersService usersService; 
+
     private static final int POINTS_PER_KM = 100;
     
     @PostMapping("/api/run_activity")
     private ResponseEntity<?> saveRuns(@RequestBody Runs runData) {
         try {
-            Runs savedRun = runsRepository.save(runData);
+            usersService.saveRunAndCheckNotifications(runData);
+
+            Runs savedRun = runData; 
 
             Long userId = savedRun.getUserId(); 
             Double distance = savedRun.getDistanceKm(); 
@@ -53,6 +57,7 @@ public class RunsController {
                     System.out.println("Đã cộng " + earnedPoints + " điểm cho User ID: " + userId);
                 }
             }
+            // -----------------------------------------------------------------------
 
             return new ResponseEntity<>(savedRun, HttpStatus.CREATED);
 
@@ -61,6 +66,8 @@ public class RunsController {
             return new ResponseEntity<>("Error saving run: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // --- CÁC HÀM DƯỚI GIỮ NGUYÊN KHÔNG ĐỤNG VÀO ---
 
     @GetMapping("/api/run_activity")
     private ResponseEntity<List<Runs>> findAllRuns() {
@@ -86,19 +93,19 @@ public class RunsController {
 
     @PostMapping("api/run_activity/by_user_id")
     private ResponseEntity<?> getRunByUser(@RequestBody Map<String,String> payload) {
-    try {
-        Long userId = Long.parseLong(payload.get("userId"));
-        
-        List<Runs> runs = runsRepository.findByUserId(userId);
-        
-        return ResponseEntity.ok(runs);
-        
-    } catch (NumberFormatException e) {
-         Map<String, String> response = new HashMap<>();
-         response.put("message", "Invalid User ID format");
-         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    } catch (Exception e) {
-        return ResponseEntity.badRequest().body("Lỗi Server: " + e.getMessage());
+        try {
+            Long userId = Long.parseLong(payload.get("userId"));
+            
+            List<Runs> runs = runsRepository.findByUserId(userId);
+            
+            return ResponseEntity.ok(runs);
+            
+        } catch (NumberFormatException e) {
+             Map<String, String> response = new HashMap<>();
+             response.put("message", "Invalid User ID format");
+             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Lỗi Server: " + e.getMessage());
+        }
     }
-  }
 }

@@ -12,15 +12,22 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.model.Users;
 import com.example.demo.repository.UsersRepository;
 import com.example.demo.service.CloudinaryService;
+import com.example.demo.service.NotificationService;
 
 @RestController
 public class UsersController {
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     private UsersRepository usersRepository;
 
     @Autowired
     private CloudinaryService cloudinaryService;
+
+    @Autowired
+    private com.example.demo.service.UsersService usersService;
 
     @GetMapping("/api/users")
     private List<Users> getAllUsers() {
@@ -104,5 +111,27 @@ public class UsersController {
             return ResponseEntity.ok("Updated name success");
         }
         return ResponseEntity.badRequest().body("Name is empty");
+    }
+
+
+    @PostMapping("/api/users/fcm-token")
+    public ResponseEntity<?> saveFcmToken(@RequestParam Long userId, @RequestParam String token) {
+        try {
+            // Gọi service để lưu vào DB (Bạn cần viết hàm này bên Service nhé)
+            usersService.updateFcmToken(userId, token);
+            return ResponseEntity.ok("Đã lưu Token thành công!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Lỗi lưu token: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/api/test-notif")
+    public ResponseEntity<?> testNotification(@RequestParam String token) {
+        notificationService.sendToToken(
+            token, 
+            "Test từ Backend", 
+            "Chúc mừng! Server Spring Boot đã kết nối thành công với App Android."
+        );
+        return ResponseEntity.ok("Đã gửi lệnh tin nhắn!");
     }
 }
