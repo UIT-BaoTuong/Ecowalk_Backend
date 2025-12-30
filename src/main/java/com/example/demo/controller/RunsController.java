@@ -29,7 +29,7 @@ public class RunsController {
 
     @Autowired
     private RunPointsRepository runPointsRepository;
-
+//
     @Autowired
     private UsersRepository usersRepository;
 
