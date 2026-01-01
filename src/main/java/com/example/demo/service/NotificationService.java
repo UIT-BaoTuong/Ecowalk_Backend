@@ -1,49 +1,80 @@
 package com.example.demo.service;
 
+import com.example.demo.repository.NotificationRepository;
+import com.google.firebase.messaging.AndroidConfig;
+import com.google.firebase.messaging.AndroidNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.example.demo.repository.UsersRepository;
-import com.example.demo.repository.RewardRepository;
-import com.example.demo.repository.RunPointsRepository;
-import com.example.demo.repository.RunsRepository;
 
 @Service
 public class NotificationService {
 
-    // Hàm cơ bản để bắn tin sang Firebase
-    public void sendToToken(String targetToken, String title, String body) {
-        if (targetToken == null || targetToken.isEmpty()) return;
+  @Autowired private NotificationRepository notificationRepository;
 
-        try {
-            Message message = Message.builder()
-                .setToken(targetToken)
-                .setNotification(Notification.builder()
-                    .setTitle(title)
-                    .setBody(body)
-                    .build())
-                .build();
-            
-            FirebaseMessaging.getInstance().send(message);
-            System.out.println("Sent notification to: " + targetToken);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+  // Hàm cơ bản để bắn tin sang Firebase VÀ lưu vào Database
+  public void sendToToken(String targetToken, String title, String body) {
+    sendToToken(targetToken, title, body, null, null);
+  }
 
-    // --- LOGIC 1: CRON JOB NHẮC CHẠY (Chạy 8h sáng mỗi ngày) ---
-    // Cần thêm @EnableScheduling vào file EcoWalkApplication.java
-    @Scheduled(cron = "0 0 8 * * ?") 
-    public void remindInactiveUsers() {
-        // Giả sử bạn viết hàm findInactiveUsers trong Repo trả về List user
-        // List<User> users = userRepository.findInactiveUsers(3); // 3 ngày
-        
-        // for (User u : users) {
-        //     sendToToken(u.getFcmToken(), "Nhắc nhở nhẹ!", "3 ngày rồi chưa chạy, xách giày lên nào!");
-        // }
-        System.out.println("Checking for inactive users...");
+  // Hàm mở rộng: gửi Firebase + lưu DB + lưu type
+  public void sendToToken(String targetToken, String title, String body, Long userId, String type) {
+    if (targetToken == null || targetToken.isEmpty()) return;
+
+    try {
+      String channelId = "ecowalk_channel";
+
+      AndroidConfig androidConfig =
+          AndroidConfig.builder()
+              .setNotification(AndroidNotification.builder().setChannelId(channelId).build())
+              .build();
+
+      Message message =
+          Message.builder()
+              .setToken(targetToken)
+              .setNotification(Notification.builder().setTitle(title).setBody(body).build())
+              .setAndroidConfig(androidConfig)
+              .build();
+
+      FirebaseMessaging.getInstance().send(message);
+      System.out.println("✅ Sent notification to: " + targetToken);
+
+      // LƯU VÀO DATABASE nếu có userId
+      if (userId != null) {
+        saveNotificationToDb(userId, title, body, type);
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
+
+  // Hàm lưu thông báo vào database
+  public void saveNotificationToDb(Long userId, String title, String body, String type) {
+    try {
+      com.example.demo.model.Notification notification =
+          com.example.demo.model.Notification.builder()
+              .userId(userId)
+              .title(title)
+              .body(body)
+              .type(type)
+              .isRead(false)
+              .build();
+
+      notificationRepository.save(notification);
+      System.out.println("💾 Saved notification to DB for user: " + userId);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  // --- LOGIC 1: CRON JOB NHẮC CHẠY (Chạy 8h sáng mỗi ngày) ---
+  // Cần thêm @EnableScheduling vào file EcoWalkApplication.java
+  @Scheduled(cron = "0 0 8 * * ?")
+  public void remindInactiveUsers() {
+    System.out.println("Checking for inactive users...");
+  }
 }

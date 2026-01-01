@@ -19,93 +19,91 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RunsController {
-    
-    @Autowired
-    private RunsRepository runsRepository;
 
-    @Autowired
-    private UsersRepository usersRepository;
+  @Autowired private RunsRepository runsRepository;
 
-    // 👇 1. THÊM SERVICE VÀO ĐÂY
-    @Autowired
-    private UsersService usersService; 
+  @Autowired private UsersRepository usersRepository;
 
-    private static final int POINTS_PER_KM = 100;
-    
-    @PostMapping("/api/run_activity")
-    private ResponseEntity<?> saveRuns(@RequestBody Runs runData) {
-        try {
-            usersService.saveRunAndCheckNotifications(runData);
+  // 👇 1. THÊM SERVICE VÀO ĐÂY
+  @Autowired private UsersService usersService;
 
-            Runs savedRun = runData; 
+  private static final int POINTS_PER_KM = 100;
 
-            Long userId = savedRun.getUserId(); 
-            Double distance = savedRun.getDistanceKm(); 
+  @PostMapping("/api/run_activity")
+  private ResponseEntity<?> saveRuns(@RequestBody Runs runData) {
+    try {
+      usersService.saveRunAndCheckNotifications(runData);
 
-            if (userId != null && distance != null) {
-                Optional<Users> userOpt = usersRepository.findById(userId);
-                
-                if (userOpt.isPresent()) {
-                    Users user = userOpt.get();
-                    
-                    int earnedPoints = (int) (distance * POINTS_PER_KM);
-                    int currentPoints = user.getCurrentPoints();
-                    
-                    user.setCurrentPoints(currentPoints + earnedPoints);
-                    usersRepository.save(user);
-                    
-                    System.out.println("Đã cộng " + earnedPoints + " điểm cho User ID: " + userId);
-                }
-            }
-            // -----------------------------------------------------------------------
+      Runs savedRun = runData;
 
-            return new ResponseEntity<>(savedRun, HttpStatus.CREATED);
+      Long userId = savedRun.getUserId();
+      Double distance = savedRun.getDistanceKm();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("Error saving run: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+      if (userId != null && distance != null) {
+        Optional<Users> userOpt = usersRepository.findById(userId);
+
+        if (userOpt.isPresent()) {
+          Users user = userOpt.get();
+
+          int earnedPoints = (int) (distance * POINTS_PER_KM);
+          int currentPoints = user.getCurrentPoints();
+
+          user.setCurrentPoints(currentPoints + earnedPoints);
+          usersRepository.save(user);
+
+          System.out.println("Đã cộng " + earnedPoints + " điểm cho User ID: " + userId);
         }
-    }
+      }
+      // -----------------------------------------------------------------------
 
-    // --- CÁC HÀM DƯỚI GIỮ NGUYÊN KHÔNG ĐỤNG VÀO ---
+      return new ResponseEntity<>(savedRun, HttpStatus.CREATED);
 
-    @GetMapping("/api/run_activity")
-    private ResponseEntity<List<Runs>> findAllRuns() {
-        List<Runs> runs = runsRepository.findAll();
-        return ResponseEntity.ok(runs);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new ResponseEntity<>(
+          "Error saving run: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
 
-    @PostMapping("api/run_activity/by_id")
-    private ResponseEntity<Runs> getRunById(@RequestBody Map<String,String> payload) {
-        try {
-            Long id = Long.parseLong(payload.get("id"));
-            Optional<Runs> optionalRun = runsRepository.findById(id);
-            if(optionalRun.isPresent()) {
-                Runs run = optionalRun.get();
-                return ResponseEntity.ok(run);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
+  // --- CÁC HÀM DƯỚI GIỮ NGUYÊN KHÔNG ĐỤNG VÀO ---
 
-    @PostMapping("api/run_activity/by_user_id")
-    private ResponseEntity<?> getRunByUser(@RequestBody Map<String,String> payload) {
-        try {
-            Long userId = Long.parseLong(payload.get("userId"));
-            
-            List<Runs> runs = runsRepository.findByUserId(userId);
-            
-            return ResponseEntity.ok(runs);
-            
-        } catch (NumberFormatException e) {
-             Map<String, String> response = new HashMap<>();
-             response.put("message", "Invalid User ID format");
-             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Lỗi Server: " + e.getMessage());
-        }
+  @GetMapping("/api/run_activity")
+  private ResponseEntity<List<Runs>> findAllRuns() {
+    List<Runs> runs = runsRepository.findAll();
+    return ResponseEntity.ok(runs);
+  }
+
+  @PostMapping("api/run_activity/by_id")
+  private ResponseEntity<Runs> getRunById(@RequestBody Map<String, String> payload) {
+    try {
+      Long id = Long.parseLong(payload.get("id"));
+      Optional<Runs> optionalRun = runsRepository.findById(id);
+      if (optionalRun.isPresent()) {
+        Runs run = optionalRun.get();
+        return ResponseEntity.ok(run);
+      } else {
+        return ResponseEntity.notFound().build();
+      }
+    } catch (NumberFormatException e) {
+      return ResponseEntity.badRequest().build();
     }
+  }
+
+  @PostMapping("api/run_activity/by_user_id")
+  private ResponseEntity<?> getRunByUser(@RequestBody Map<String, String> payload) {
+    try {
+      Long userId = Long.parseLong(payload.get("userId"));
+
+      List<Runs> runs = runsRepository.findByUserId(userId);
+
+      return ResponseEntity.ok(runs);
+
+    } catch (NumberFormatException e) {
+      Map<String, String> response = new HashMap<>();
+      response.put("message", "Invalid User ID format");
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body("Lỗi Server: " + e.getMessage());
+    }
+  }
 }

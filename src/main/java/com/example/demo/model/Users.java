@@ -43,20 +43,20 @@ public class Users {
   private String avatarUrl;
 
   @Column(name = "reset_token", length = 6)
-    private String resetToken;  // save OTP token here
+  private String resetToken; // save OTP token here
 
   @Column(name = "reset_token_expire")
-  private LocalDateTime resetTokenExpire;  // OTP expiration time
+  private LocalDateTime resetTokenExpire; // OTP expiration time
 
   @Column(name = "fcm_token")
-    private String fcmToken; // Biến lưu mã định danh gửi thông báo
+  private String fcmToken; // Biến lưu mã định danh gửi thông báo
 
-    // Getter và Setter (Bắt buộc phải có)
-    public String getFcmToken() {
-        return fcmToken;
-    }
+  // Getter và Setter (Bắt buộc phải có)
+  public String getFcmToken() {
+    return fcmToken;
+  }
 
-    public void setFcmToken(String fcmToken) {
-        this.fcmToken = fcmToken;
-    }
+  public void setFcmToken(String fcmToken) {
+    this.fcmToken = fcmToken;
+  }
 }

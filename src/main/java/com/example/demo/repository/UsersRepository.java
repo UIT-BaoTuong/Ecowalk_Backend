@@ -18,8 +18,10 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
   Users findByResetToken(String token);
 
   @org.springframework.data.jpa.repository.Modifying
-    @org.springframework.transaction.annotation.Transactional
-    @org.springframework.data.jpa.repository.Query("UPDATE Users u SET u.fcmToken = :token WHERE u.id = :userId")
-    void updateFcmToken(@org.springframework.data.repository.query.Param("userId") Long userId, 
-                        @org.springframework.data.repository.query.Param("token") String token);
+  @org.springframework.transaction.annotation.Transactional
+  @org.springframework.data.jpa.repository.Query(
+      "UPDATE Users u SET u.fcmToken = :token WHERE u.id = :userId")
+  void updateFcmToken(
+      @org.springframework.data.repository.query.Param("userId") Long userId,
+      @org.springframework.data.repository.query.Param("token") String token);
 }

@@ -11,18 +11,18 @@ import lombok.*;
 @Entity
 @Table(name = "rewards")
 public class Reward {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String name;        // Tên quà (VD: Voucher 50k)
+  @Column(nullable = false)
+  private String name; // Tên quà (VD: Voucher 50k)
 
-    private String description; // Mô tả
+  private String description; // Mô tả
 
-    @Column(nullable = false)
-    private int cost;           // Số điểm cần để đổi
+  @Column(nullable = false)
+  private int cost; // Số điểm cần để đổi
 
-    @Column(columnDefinition = "TEXT")
-    private String image_url;    
+  @Column(columnDefinition = "TEXT")
+  private String image_url;
 }
