@@ -42,9 +42,9 @@ public class AuthController {
     response.put("access_token", accessToken);
     response.put("refresh_token", refreshToken);
 
-    // Trả về ID để Frontend lưu Token FCM và load dữ liệu User
+    // 👇 MỚI THÊM: Trả về ID để Frontend lưu Token FCM và load dữ liệu User
     response.put("id", user.getId());
-    response.put("user_id", user.getId());
+    // (Tùy chọn) Thêm email luôn cho chắc ăn
     response.put("email", user.getEmail());
 
     return ResponseEntity.ok(response);
