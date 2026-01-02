@@ -7,24 +7,7 @@ plugins {
 	id 'com.github.spotbugs' version '6.0.4'
 	id "org.owasp.dependencycheck" version "9.0.9"
 }
-checkstyle {
-    toolVersion = '10.12.5' 
-	configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
-	ignoreFailures = true  
-}
-spotless {
-    java {
-        googleJavaFormat() 
-    }
-}
-spotbugs {
-    toolVersion = '4.8.4' 
-    reportLevel = 'low' 
-	ignoreFailures = true
-}
-dependencyCheck {
-	failBuildOnCVSS = 10
-}
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 description = 'Demo project for Spring Boot'
@@ -36,30 +19,47 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    implementation 'org.postgresql:postgresql'
+	implementation 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    compileOnly 'org.projectlombok:lombok:1.18.30'
+	compileOnly 'org.projectlombok:lombok:1.18.30'
 	implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
 	implementation 'com.vladmihalcea:hibernate-types-60:2.21.1'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-    runtimeOnly   'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'com.cloudinary:cloudinary-http44:1.36.0'
 	implementation 'com.cloudinary:cloudinary-taglib:1.36.0'
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
-	runtimeOnly   'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'com.cloudinary:cloudinary-http44:1.33.0'
-<<<<<<< HEAD
 	implementation 'com.google.firebase:firebase-admin:9.5.0'
-=======
-	
->>>>>>> main
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+checkstyle {
+	toolVersion = '10.12.5'
+	configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+	ignoreFailures = true
+}
+
+spotless {
+	java {
+		googleJavaFormat()
+	}
+}
+
+spotbugs {
+	toolVersion = '4.8.4'
+	reportLevel = 'low'
+	ignoreFailures = true
+}
+
+dependencyCheck {
+	failBuildOnCVSS = 10
 }
 
 tasks.named('test') {
