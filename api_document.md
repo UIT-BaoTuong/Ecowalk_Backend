@@ -138,7 +138,7 @@ Mẫu dữ liệu trả về (Response):
 }
 
 Quên mật khẩu
-
+ Để nhận OTP về mail thật thì cần vào App Password trên gmail và tạo một App Password mới để test. Chỉ test trên local, test xong xóa password, TRÁNH commit mật khẩu lên Github đảm bảo tính bảo mật.
 1. POST http://localhost:8081/api/auth/forgot-password
    {
    "email": "nhom7nt118@gmail.com"

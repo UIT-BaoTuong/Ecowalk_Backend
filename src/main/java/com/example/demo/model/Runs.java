@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "runs")
-// XÓA DÒNG NÀY: @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 @Getter
 @Setter
 public class Runs {
