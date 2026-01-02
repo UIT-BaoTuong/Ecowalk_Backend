@@ -34,7 +34,8 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
   @Modifying
   @Transactional
   @Query(
-      value = "DELETE FROM notifications WHERE user_id = :userId AND created_at < NOW() - INTERVAL '30 days'",
+      value =
+          "DELETE FROM notifications WHERE user_id = :userId AND created_at < NOW() - INTERVAL '30 days'",
       nativeQuery = true)
   void deleteOldNotifications(@Param("userId") Long userId);
 }
