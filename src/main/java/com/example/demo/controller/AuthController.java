@@ -70,6 +70,7 @@ public class AuthController {
     newUser.setEmail(email);
     newUser.setPhoneNumber(phoneNumber);
     newUser.setPasswordHash(passwordEncoder.encode(password));
+    newUser.setAvatarUrl("https://static.vecteezy.com/system/resources/previews/002/688/046/non_2x/man-avatar-running-design-vector.jpg");
     newUser.setCreateAt(LocalDateTime.now());
 
     // Create a new user in database "users"

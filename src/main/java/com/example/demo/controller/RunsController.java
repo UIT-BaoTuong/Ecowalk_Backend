@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.RunActivityResponse;
 import com.example.demo.model.RunPoints;
 import com.example.demo.model.Runs;
 import com.example.demo.model.Users;
@@ -7,10 +8,13 @@ import com.example.demo.repository.RunPointsRepository;
 import com.example.demo.repository.RunsRepository;
 import com.example.demo.repository.UsersRepository;
 import com.example.demo.service.UsersService;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +61,6 @@ public class RunsController {
           System.out.println("Đã cộng " + earnedPoints + " điểm cho User ID: " + userId);
         }
       }
-      // -----------------------------------------------------------------------
 
       return new ResponseEntity<>(savedRun, HttpStatus.CREATED);
 
@@ -69,9 +72,41 @@ public class RunsController {
   }
 
   @GetMapping("/api/run_activity")
-  private ResponseEntity<List<Runs>> findAllRuns() {
-    List<Runs> runs = runsRepository.findAll();
-    return ResponseEntity.ok(runs);
+  private ResponseEntity<List<RunActivityResponse>> findAllRuns() {
+    List<Runs> runs = runsRepository.findAll(Sort.by(Sort.Direction.DESC, "startTime"));
+    List<RunActivityResponse> responses = new ArrayList<>();
+    for (Runs run : runs) {
+      RunActivityResponse response = new RunActivityResponse();
+      response.setRunId(run.getRunId());
+      response.setStartTime(run.getStartTime());
+      response.setEndTime(run.getEndTime());
+      response.setDistanceKm(run.getDistanceKm());
+      response.setUserId(run.getUserId());
+      response.setMapData(run.getMapData());
+
+      // Fetch user name
+      Optional<Users> userOpt = usersRepository.findById(run.getUserId());
+      String userName = userOpt.map(Users::getFullName).orElse("Unknown User");
+      String avatarUrl = userOpt.map(Users::getAvatarUrl).orElse(null);
+      response.setUserName(userName);
+      response.setAvatarUrl(avatarUrl);
+
+      // Calculate duration in hours
+      long durationMillis = Duration.between(run.getStartTime(), run.getEndTime()).toMillis();
+      double hours = durationMillis / 3600000.0;
+
+      // Average speed in km/h
+      double averageSpeed = hours > 0 ? run.getDistanceKm() / hours : 0;
+
+      // Calories assuming 60kg
+      double calories = run.getDistanceKm() * 60;
+
+      response.setAverageSpeed(averageSpeed);
+      response.setCalories(calories);
+
+      responses.add(response);
+    }
+    return ResponseEntity.ok(responses);
   }
 
   @PostMapping("api/run_activity/by_id")

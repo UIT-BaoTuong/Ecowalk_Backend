@@ -27,4 +27,8 @@ public class Runs {
 
   @Column(name = "user_id", nullable = false)
   private Long userId;
+
+  @Lob
+  @Column(name = "map_data")
+  private String mapData;
 }
