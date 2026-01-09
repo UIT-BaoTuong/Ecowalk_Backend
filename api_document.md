@@ -154,3 +154,19 @@ Quên mật khẩu
 API ở file HomeController
 
 GET http://localhost:8081/api/home/dashboard?userId=27
+
+API Notification
+Lấy danh sách thông báo
+GET localhost:8080/api/notifications/27
+
+Lấy số lượng chưa đọc
+GET localhost:8080/api/notifications/27/unread-count
+
+Đánh dấu 1 thông báo đã đọc
+PUT localhost:8080/api/notifications/5/mark-read
+
+Đánh dấu tất cả đã đọc
+PUT localhost:8080/api/notifications/27/mark-all-read
+
+Xóa thông báo cũ
+DELETE localhost:8080/api/notifications/27/cleanup
