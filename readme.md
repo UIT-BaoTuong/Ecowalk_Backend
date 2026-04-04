@@ -43,18 +43,31 @@ Supervisor: Ms. Tran Hong Nghi
 
 The application includes the following main screens:
 
-- Login/Register/Reset Password: User authentication with strict input validation rules
-<img width="320" height="711" alt="Image" src="https://github.com/user-attachments/assets/ae9722f5-1880-45e6-ac3b-d6af83a2fa06" />
-<img width="320" height="711" alt="Image" src="https://github.com/user-attachments/assets/0da1f241-ca39-4bb0-9265-ca0130b618da" />
-<img width="357" height="793" alt="Image" src="https://github.com/user-attachments/assets/a80e5954-e29e-4c4b-aa3d-15bfabbfffef" />
-- Main Dashboard: Overview of activity data, feed, and personal profile
-<img width="358" height="794" alt="Image" src="https://github.com/user-attachments/assets/8d0055fd-bff2-49bd-9323-2236c80f42df" />
+### Login, Register, Reset Password
 
-- Leaderboard: Ranking by distance
-<img width="358" height="794" alt="Image" src="https://github.com/user-attachments/assets/b7c643b4-4f9b-4182-a63e-fd7b3ca61548" />
+User authentication with strict input validation rules.
 
-- Tracking Screen: Displays the real-time map and movement metrics
-<img width="358" height="794" alt="Image" src="https://github.com/user-attachments/assets/c2a9ea78-1fce-466e-a7fb-0048155fe538" />
+| Login | Register | Reset Password |
+|---|---|---|
+| <img src="https://github.com/user-attachments/assets/ae9722f5-1880-45e6-ac3b-d6af83a2fa06" alt="Login screen" width="230" /> | <img src="https://github.com/user-attachments/assets/0da1f241-ca39-4bb0-9265-ca0130b618da" alt="Register screen" width="230" /> | <img src="https://github.com/user-attachments/assets/a80e5954-e29e-4c4b-aa3d-15bfabbfffef" alt="Reset password screen" width="230" /> |
+
+### Main Dashboard
+
+Overview of activity data, feed, and personal profile.
+
+<img src="https://github.com/user-attachments/assets/8d0055fd-bff2-49bd-9323-2236c80f42df" alt="Main dashboard" width="280" />
+
+### Leaderboard
+
+Ranking by distance.
+
+<img src="https://github.com/user-attachments/assets/b7c643b4-4f9b-4182-a63e-fd7b3ca61548" alt="Leaderboard screen" width="280" />
+
+### Tracking Screen
+
+Displays the real-time map and movement metrics.
+
+<img src="https://github.com/user-attachments/assets/c2a9ea78-1fce-466e-a7fb-0048155fe538" alt="Tracking screen" width="280" />
 
 ## Future Development
 
